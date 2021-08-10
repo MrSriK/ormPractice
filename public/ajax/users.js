@@ -13,6 +13,7 @@ $("#storedata").click(function () {
         data: storedata,
         success: function (data) {
             alert("Data Stored");
+            $("#sampleform>input").val('');
         },
         error: function (err) {
             console.log(err);
@@ -24,16 +25,16 @@ $("#storedata").click(function () {
 
 /* For displaying all records on clicking Display DB */
 
-$("#displaydb").click(function(){
+$("#displaydb").click(function () {
     $.ajax({
-        type:"GET",
-        url:"/users/displaydb",
-        success:function(data){
+        type: "GET",
+        url: "/users/displaydb",
+        success: function (data) {
             console.log("Inside displayDB ajax success")
             console.log(data);
-            document.getElementById('dboutput').innerHTML="<br>"+JSON.stringify(data)+"<br>";
+            $("#dboutput").html("<br>" + JSON.stringify(data) + "<br>");
         },
-        error:function(err){
+        error: function (err) {
             console.log(err);
         }
     });

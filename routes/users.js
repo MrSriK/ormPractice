@@ -26,6 +26,7 @@ router.post('/', function (req, res, next) {
     usersObj.storeData(params).then((data) => {
       console.log('data in route');
       console.log(data);
+      res.send(data);
     }).catch((err) => {
       console.log('Inside catch block in Users Route');
       console.log(err);
