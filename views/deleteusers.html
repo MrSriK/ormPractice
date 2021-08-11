@@ -1,0 +1,25 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Users Page</title>
+</head>
+
+<body>
+    <div>
+        <h1>Delete Users Page</h1>
+        <form id="deleteusersform">
+        <label>Enter ID to be deleted</label>
+        <input type="text" id="prim_key" name="prim_key" placeholder="ID"><br>
+        <button type="button" id="deletedata" name="deletedata">Delete Data</button><br><br>
+        </form>
+        <button type="button" id="displaydb" name="displaydb">Display DB</button>
+        <p id="dboutput"></p>
+    </div>
+    <%-include('./partials/foot.html')-%>
+<script src="/ajax/deleteusers.js"></script>
+</body>
+
+</html>

@@ -9,11 +9,11 @@ $("#storedata").click(function () {
     };
     $.ajax({
         type: "POST",
-        url: "/users",
+        url: "/addusers",
         data: storedata,
         success: function (data) {
             alert("Data Stored");
-            $("#sampleform>input").val('');
+            $("#addusersform>input ").val('');
         },
         error: function (err) {
             console.log(err);
@@ -28,7 +28,7 @@ $("#storedata").click(function () {
 $("#displaydb").click(function () {
     $.ajax({
         type: "GET",
-        url: "/users/displaydb",
+        url: "/addusers/displaydb",
         success: function (data) {
             console.log("Inside displayDB ajax success")
             console.log(data);

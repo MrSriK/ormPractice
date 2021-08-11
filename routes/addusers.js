@@ -1,12 +1,12 @@
 var express = require('express');
 var router = express.Router();
-const usersService = require('../service/users');
-const usersObj = new usersService.usersServiceClass();
+const addUsersService = require('../service/addusers');
+const addUsersObj = new addUsersService.addUsersServiceClass();
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-  console.log("Inside Index GET");
-  res.render('users');
+  console.log("Inside Add Users GET");
+  res.render('addusers');
   //res.send('respond with a resource');
 });
 
@@ -15,15 +15,15 @@ router.get('/', function (req, res, next) {
 router.post('/', function (req, res, next) {
   try {
     console.log('Inside storeData users route');
-    let fname=req.body.fname;
-    let city=req.body.city;
+    let fname = req.body.fname;
+    let city = req.body.city;
     params = {
-      fname:fname,
-      city:city
+      fname: fname,
+      city: city
     };
     console.log("params in route");
     console.log(params);
-    usersObj.storeData(params).then((data) => {
+    addUsersObj.storeData(params).then((data) => {
       console.log('data in route');
       console.log(data);
       res.send(data);
@@ -42,18 +42,18 @@ router.post('/', function (req, res, next) {
 
 /* Route to display all records in DB */
 
-router.get('/displaydb',function(req,res,next){
-  try{
-    usersObj.displayDB().then((data)=>{
+router.get('/displaydb', function (req, res, next) {
+  try {
+    addUsersObj.displayDB().then((data) => {
       console.log("inside route of displayDB");
       console.log(data);
       res.send(data);
-    }).catch((err)=>{
+    }).catch((err) => {
       console.log("Inside catch of displayDB in route");
       console.log(err);
     })
   }
-  catch(err){
+  catch (err) {
     console.log(err);
   }
 })

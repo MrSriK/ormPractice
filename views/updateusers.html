@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Users</title>
+</head>
+
+<body>
+    <div>
+        <h1>Update Users Page</h1>
+        <form id="updateusersform">
+        <label>Enter ID to be updated</label>
+        <input type="text" id="prim_key" name="prim_key" placeholder="ID"><br>
+        <label>Enter Updated Name</label>
+        <input type="text" id="fname" name="fname" placeholder="Name"><br>
+        <label>Enter Updated City</label>
+        <input type="text" id="city" name="city" placeholder="City"><br>
+        <button type="button" id="updatedata" name="updatedata">Update Data</button><br><br>
+        </form>
+        <button type="button" id="displaydb" name="displaydb">Display DB</button>
+        <p id="dboutput"></p>
+    </div>
+    <%-include('./partials/foot.html')-%>
+<script src="/ajax/updateusers.js"></script>
+</body>
+
+</html>

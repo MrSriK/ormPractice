@@ -1,15 +1,15 @@
-const usersWorkerObj = require('../worker/users');
-let usersObj = new usersWorkerObj.usersWorkerClass();
+const addUsersWorkerObj = require('../worker/addusers');
+let addUsersObj = new addUsersWorkerObj.addUsersWorkerClass();
 
-class Users {
-    Users() { }
+class addUsers {
+    addUsers() { }
 
     /* --------function to store data in table---------- */
     storeData(params) {
         return new Promise((resolve, reject) => {
             console.log("Inside storeData in service");
             console.log(params);
-            usersObj.storeData(params).then((data) => {
+            addUsersObj.storeData(params).then((data) => {
                 console.log('Inside storeData service then');
                 console.log(data);
                 resolve(data);
@@ -28,7 +28,7 @@ class Users {
     displayDB(){
         return new Promise((resolve,reject)=>{
             console.log("Inside displayDB in Service");
-            usersObj.displayDB().then((data)=>{
+            addUsersObj.displayDB().then((data)=>{
                 console.log("Inside then of displayDB is Service");
                 console.log(data);
                 resolve(data);
@@ -44,5 +44,5 @@ class Users {
 }
 
 module.exports = {
-    usersServiceClass: Users
+    addUsersServiceClass: addUsers
 }
