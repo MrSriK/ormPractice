@@ -12,7 +12,7 @@ router.get('/', function (req, res, next) {
 
 /* Route to store data in DB */
 
-router.post('/', function (req, res, next) {
+router.post('/', async (req, res, next) => {
   try {
     console.log('Inside storeData users route');
     let fname = req.body.fname;
@@ -23,16 +23,13 @@ router.post('/', function (req, res, next) {
     };
     console.log("params in route");
     console.log(params);
-    addUsersObj.storeData(params).then((data) => {
-      console.log('data in route');
-      console.log(data);
-      res.send(data);
-    }).catch((err) => {
-      console.log('Inside catch block in Users Route');
-      console.log(err);
-    })
+    let data = await addUsersObj.storeData(params);
+    console.log('data in route');
+    console.log(data);
+    res.send(data);
   }
   catch (err) {
+    console.log('Inside catch block in Users Route');
     console.log(err);
   }
 })
@@ -42,18 +39,15 @@ router.post('/', function (req, res, next) {
 
 /* Route to display all records in DB */
 
-router.get('/displaydb', function (req, res, next) {
+router.get('/displaydb', async (req, res, next) => {
   try {
-    addUsersObj.displayDB().then((data) => {
-      console.log("inside route of displayDB");
-      console.log(data);
-      res.send(data);
-    }).catch((err) => {
-      console.log("Inside catch of displayDB in route");
-      console.log(err);
-    })
+    let data = await addUsersObj.displayDB();
+    console.log("inside route of displayDB");
+    console.log(data);
+    res.status(200).json(data);
   }
   catch (err) {
+    res.status(400).send(err.message);
     console.log(err);
   }
 })

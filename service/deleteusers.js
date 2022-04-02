@@ -6,19 +6,19 @@ class deleteUsers {
 
     /* function to delete user */
 
-    removeData(prim_key) {
-        return new Promise((resolve, reject) => {
+    async removeData(prim_key) {
+        try {
             console.log(`inside deleteData service>>>primary key=${prim_key}`);
-            deleteUsersObj.removeData(prim_key).then((data) => {
-                console.log("data in removeData service");
-                console.log(data);
-                resolve(data);
-            }).catch((err) => {
-                console.log("inside catch block of removeData service");
-                console.log(err);
-                reject(err);
-            })
-        })
+            let data = await deleteUsersObj.removeData(prim_key);
+            console.log("data in removeData service");
+            console.log(data);
+            return data;
+        }
+        catch (err) {
+            console.log("inside catch block of removeData service");
+            console.log(err);
+            throw new Error(err);
+        }
     }
 
     /* ----x--------x----------x-------- */
@@ -26,19 +26,19 @@ class deleteUsers {
 
     /* function to display all records */
 
-    displayDB(){
-        return new Promise((resolve,reject)=>{
+    async displayDB() {
+        try {
             console.log("Inside displayDB in Service");
-            deleteUsersObj.displayDB().then((data)=>{
-                console.log("Inside then of displayDB is Service");
-                console.log(data);
-                resolve(data);
-            }).catch((err)=>{
-                console.log("Inside catch of displayDB in service");
-                console.log(err);
-                reject(err);
-            })
-        })
+            let data = await deleteUsersObj.displayDB()
+            console.log("Inside try of displayDB in Service");
+            console.log(data);
+            return data;
+        }
+        catch (err) {
+            console.log("Inside catch of displayDB in service");
+            console.log(err);
+            throw new Error(err);
+        }
     }
 
     /* --------x-----------x--------x--------- */

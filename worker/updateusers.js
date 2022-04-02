@@ -6,53 +6,52 @@ class updateUsers {
 
     /* functiion to update data in table */
 
-
-    modifyData(prim_key, params) {
-        return new Promise((resolve, reject) => {
+    async modifyData(prim_key, params) {
+        try {
             console.log(`params in modifyData worker`);
             console.log(params);
             params = {
                 firstName: params.fname,
                 city: params.city
             };
-            console.log("rechecking params in modifyData worker");
+            console.log(`Params after making changes`);
             console.log(params);
             console.log(`prim_key in modifyData worker=${prim_key}`);
-            updateUsersObj.update(params, {
+            let data = await updateUsersObj.update(params, {
                 where: {
                     id: prim_key
                 }
-            }).then((data) => {
-                console.log(`Data in modifyData worker then`);
-                console.log(data);
-                resolve(data);
-            }).catch((err) => {
-                console.log("inside catch of modifyData worker");
-                console.log(err);
-                reject(err);
-            })
-        })
+            });
+            console.log(`Data in modifyData worker then`);
+            console.log(data);
+            return data;
+        }
+        catch (err) {
+            console.log("inside catch of modifyData worker");
+            console.log(err);
+            throw new Error(err);
+        }
     }
-
 
     /* --------------------------------------------- */
 
 
     /* function to display all records */
 
-    displayDB() {
-        return new Promise((resolve, reject) => {
+
+    async displayDB() {
+        try {
             console.log('Inside displayDB in worker');
-            updateUsersObj.findAll().then((data) => {
-                console.log("Inside then of displayDB");
-                console.log(data);
-                resolve(data);
-            }).catch((err) => {
-                console.log("Inside catch of displayDB");
-                console.log(err);
-                reject(err);
-            })
-        })
+            let data = await updateUsersObj.findAll();
+            console.log("Inside try of displayDB");
+            console.log(data);
+            return data;
+        }
+        catch (err) {
+            console.log("Inside catch of displayDB");
+            console.log(err);
+            throw new Error(err);
+        }
     }
 
 

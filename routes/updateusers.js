@@ -12,7 +12,7 @@ router.get('/', function (req, res, next) {
 
 /* Route to update data in DB */
 
-router.post('/', function (req, res, next) {
+router.post('/', async (req, res, next) => {
     try {
         console.log("Inside modifyData route");
         let params = {};
@@ -25,30 +25,26 @@ router.post('/', function (req, res, next) {
         };
         console.log("Params in Route");
         console.log(params);
-        updateUsersObj.modifyData(prim_key, params).then((data) => {
-            console.log('Data in route');
-            console.log(data);
-            //res.send(data);
-            if (data > 0) {
-                let response_obj = {
-                    status: 200,
-                    data: data
-                }
-                res.send(response_obj);
+        let data = await updateUsersObj.modifyData(prim_key, params);
+        console.log('Data in route');
+        console.log(data);
+        if (data > 0) {
+            let response_obj = {
+                status: 200,
+                data: data
             }
-            else {
-                let response_obj = {
-                    status: 404,
-                    data: data
-                }
-                res.send(response_obj);
+            res.send(response_obj);
+        }
+        else {
+            let response_obj = {
+                status: 404,
+                data: data
             }
-        }).catch((err) => {
-            console.log("Inside Catch of update route");
-            console.log(err);
-        })
+            res.send(response_obj);
+        }
     }
     catch (err) {
+        console.log("Inside Catch of update route");
         console.log(err);
     }
 })
@@ -59,21 +55,20 @@ router.post('/', function (req, res, next) {
 
 /* Route to display all records in DB */
 
-router.get('/displaydb', function (req, res, next) {
+
+router.get('/displaydb', async (req, res, next) => {
     try {
-        updateUsersObj.displayDB().then((data) => {
-            console.log("inside route of displayDB");
-            console.log(data);
-            res.send(data);
-        }).catch((err) => {
-            console.log("Inside catch of displayDB in route");
-            console.log(err);
-        })
+        let data = await updateUsersObj.displayDB();
+        console.log("inside route of displayDB");
+        console.log(data);
+        res.status(200).json(data);
     }
     catch (err) {
+        res.status(400).send(err.message);
         console.log(err);
     }
 })
+
 
 /* --------x--------x--------x--------- */
 

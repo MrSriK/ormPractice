@@ -10,34 +10,31 @@ router.get('/', function (req, res, next) {
 
 /* ROute to delete data from DB */
 
-router.post('/', function (req, res, next) {
+router.post('/', async (req, res, next) => {
     try {
         console.log("inside delete user route");
         let prim_key = req.body.params;
         console.log(`Primary key in route=${prim_key}`);
-        deleteUsersObj.removeData(prim_key).then((data) => {
-            console.log("Inside then of delete user route");
-            console.log(data);
-            if(data){
-                let response_obj={
-                    status:200,
-                    data:data
-                };
-                res.send(response_obj);
+        let data = await deleteUsersObj.removeData(prim_key)
+        console.log("Inside then of delete user route");
+        console.log(data);
+        if (data) {
+            let response_obj = {
+                status: 200,
+                data: data
+            };
+            res.send(response_obj);
+        }
+        else {
+            let response_obj = {
+                status: 404,
+                data: data
             }
-            else{
-                let response_obj={
-                    status:404,
-                    data:data
-                }
-                res.send(response_obj);
-            }
-        }).catch((err) => {
-            console.log("inside catch of deleteusers route");
-            console.log(err);
-        })
+            res.send(response_obj);
+        }
     }
     catch (err) {
+        console.log("inside catch of deleteusers route");
         console.log(err);
     }
 })
@@ -47,23 +44,21 @@ router.post('/', function (req, res, next) {
 
 /* Route to display all records in DB */
 
-router.get('/displaydb', function (req, res, next) {
+router.get('/displaydb', async (req, res, next) => {
     try {
-      deleteUsersObj.displayDB().then((data) => {
+        let data = await deleteUsersObj.displayDB();
         console.log("inside route of displayDB");
         console.log(data);
-        res.send(data);
-      }).catch((err) => {
-        console.log("Inside catch of displayDB in route");
-        console.log(err);
-      })
+        res.status(200).json(data);
     }
     catch (err) {
-      console.log(err);
+        res.status(400).send(err.message);
+        console.log(err);
     }
-  })
-  
-  /* --------x--------x--------x--------- */
-  
+})
+
+
+/* --------x--------x--------x--------- */
+
 
 module.exports = router;

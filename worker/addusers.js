@@ -7,41 +7,42 @@ class addUsers {
 
     /* function to store data in table */
 
-    storeData(params) {
-        return new Promise((resolve, reject) => {
-            console.log("Inside storeData in worker");
+    async storeData(params) {
+        try {
+            console.log("inside storeData in worker");
             console.log(params);
-            addUsersObj.create({
+            let data = await addUsersObj.create({
                 firstName: params.fname,
                 city: params.city
-            }).then((data) => {
-                console.log('data in storeData worker');
-                console.log(data);
-                resolve(data);
-            }).catch((err) => {
-                console.log('Inside catch block of storeData worker');
-                console.log(err);
-                reject(err);
             })
-        })
+            console.log(`data in storeData worker>>>>`);
+            console.log(data);
+            return data;
+        }
+        catch (err) {
+            console.log(`Inside catch block in storeData worker`);
+            console.log(err);
+            throw new Error(err);
+        }
     }
+
     /* ---------x--------x-----------x--------------- */
 
     /* function to display all records */
 
-    displayDB() {
-        return new Promise((resolve, reject) => {
+    async displayDB() {
+        try {
             console.log('Inside displayDB in worker');
-            addUsersObj.findAll().then((data) => {
-                console.log("Inside then of displayDB");
-                console.log(data);
-                resolve(data);
-            }).catch((err) => {
-                console.log("Inside catch of displayDB");
-                console.log(err);
-                reject(err);
-            })
-        })
+            let data = await addUsersObj.findAll();
+            console.log("Inside try of displayDB");
+            console.log(data);
+            return data;
+        }
+        catch (err) {
+            console.log("Inside catch of displayDB");
+            console.log(err);
+            throw new Error(err);
+        }
     }
 
 

@@ -5,39 +5,40 @@ class addUsers {
     addUsers() { }
 
     /* --------function to store data in table---------- */
-    storeData(params) {
-        return new Promise((resolve, reject) => {
+    
+    async storeData(params){
+        try {
             console.log("Inside storeData in service");
-            console.log(params);
-            addUsersObj.storeData(params).then((data) => {
-                console.log('Inside storeData service then');
-                console.log(data);
-                resolve(data);
-            }).catch((err) => {
-                console.log('Inside catch block of storeData service');
-                console.log(err);
-                reject(err);
-            })
-        })
+            console.log(params);    
+            let data = await addUsersObj.storeData(params);
+            console.log('Inside storeData service ');
+            console.log(data);
+            return data;
+        } 
+        catch (err) {
+            console.log('Inside catch block of storeData service');
+            console.log(err);
+            throw new Error(err);
+        }
     }
 
     /* -----x-------x-------x---------------- */
 
     /* function to display all records */
 
-    displayDB(){
-        return new Promise((resolve,reject)=>{
+    async displayDB() {
+        try {
             console.log("Inside displayDB in Service");
-            addUsersObj.displayDB().then((data)=>{
-                console.log("Inside then of displayDB is Service");
-                console.log(data);
-                resolve(data);
-            }).catch((err)=>{
-                console.log("Inside catch of displayDB in service");
-                console.log(err);
-                reject(err);
-            })
-        })
+            let data = await addUsersObj.displayDB()
+            console.log("Inside try of displayDB is Service");
+            console.log(data);
+            return data;
+        }
+        catch (err) {
+            console.log("Inside catch of displayDB in service");
+            console.log(err);
+            throw new Error(err);
+        }
     }
 
     /* --------x-----------x--------x--------- */

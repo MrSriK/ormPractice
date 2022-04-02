@@ -35,6 +35,7 @@ $("#displaydb").click(function () {
             $("#dboutput").html("<br>" + JSON.stringify(data) + "<br>");
         },
         error: function (err) {
+            alert(err.message);
             console.log(err);
         }
     });
